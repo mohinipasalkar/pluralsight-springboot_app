@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pluralsight.conferencedemo.models.Sessio;
+import com.pluralsight.conferencedemo.models.Session;
 import com.pluralsight.conferencedemo.repositories.SessionRepository;
 
 @RestController
@@ -23,25 +23,25 @@ public class SessionsController {
 	@Autowired
 	private SessionRepository sessionRepository;
 	
-	@RequestMapping("/sessio")
+	@RequestMapping("/session")
 	public String index() {
 		return "SpringBoot session Example!!!!!!!!!!!";
 	}
 	
 	@GetMapping
-	public List<Sessio> list(){
+	public List<Session> list(){
 		return sessionRepository.findAll();
 	}
 	
 	@GetMapping
 	@RequestMapping("{id}")
-	public Sessio get(@PathVariable Long id) {
+	public Session get(@PathVariable Long id) {
 		return sessionRepository.getOne(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Sessio create(@RequestBody final Sessio session) {
+	public Session create(@RequestBody final Session session) {
 		return sessionRepository.saveAndFlush(session);
 	}
 	
@@ -51,8 +51,8 @@ public class SessionsController {
 	}
 	
 	@RequestMapping(value="{id}", method = RequestMethod.PUT)
-	public Sessio update(@PathVariable Long id, @RequestBody Sessio session) {
-		Sessio existingSession = sessionRepository.getOne(id);
+	public Session update(@PathVariable Long id, @RequestBody Session session) {
+		Session existingSession = sessionRepository.getOne(id);
 		BeanUtils.copyProperties(session, existingSession, "session_id");
 		return sessionRepository.saveAndFlush(existingSession);
 	}

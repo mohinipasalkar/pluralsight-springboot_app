@@ -11,12 +11,17 @@ import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Type;
 
-@Entity(name = "Speakers")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity(name = "speakers")
+@JsonIgnoreProperties({"hibernateLazyInitializier","handler"})
 public class Speaker {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long speaker_id;
+	
 	private String first_name;
 	private String last_name;
 	private String title;
@@ -29,20 +34,20 @@ public class Speaker {
 	private byte[] speaker_photo;
 	
 	@ManyToMany(mappedBy = "speakers")
-	private List<Sessio> sessions;
+	@JsonIgnore
+	private List<Session> sessions;
 	
 	public Speaker() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public List<Sessio> getSessions() {
+	public List<Session> getSessions() {
 		return sessions;
 	}
-	public void setSessions(List<Sessio> sessions) {
+	
+	public void setSessions(List<Session> sessions) {
 		this.sessions = sessions;
 	}
-
-
 
 	public Long getSpeaker_id() {
 		return speaker_id;

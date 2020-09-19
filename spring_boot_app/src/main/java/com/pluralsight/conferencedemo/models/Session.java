@@ -10,24 +10,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "sessions")
-public class Sessio {
+@JsonIgnoreProperties({"hibernateLazyInitializier","handler"})
+public class Session {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long sesion_id;
+	private Long session_id;
 	private String session_name;
 	private String session_description;
 	private Integer session_length;
 	
 	@ManyToMany
 	@JoinTable(
-			name = "session_sepakers",
+			name = "session_speakers",
 			joinColumns = @JoinColumn(name = "session_id"),
-			inverseJoinColumns = @JoinColumn(name = "sepaker_id")
+			inverseJoinColumns = @JoinColumn(name = "speaker_id")
 			)
 	private List<Speaker> speakers;
 	
-	public Sessio() {
+	public Session() {
 		
 	}
 	
@@ -40,12 +43,12 @@ public class Sessio {
 	}
 
 
-
-	public Long getSesion_id() {
-		return sesion_id;
+	
+	public Long getSession_id() {
+		return session_id;
 	}
 	public void setSesion_id(Long sesion_id) {
-		this.sesion_id = sesion_id;
+		this.session_id = sesion_id;
 	}
 	public String getSession_name() {
 		return session_name;
